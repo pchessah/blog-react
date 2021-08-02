@@ -1,5 +1,4 @@
-import React from 'react'
-import Avatar from '@material-ui/core/Avatar';
+import React, {useState} from 'react'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import "./signup.css"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
+import firebaseConfig from '../../config';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -16,11 +16,6 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      padding: "10px",
-      backgroundColor: theme.palette.secondary.main,
     },
     form: {
       width: '100%', // Fix IE 11 issue.
@@ -32,7 +27,26 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Signup() {
+    const [currentUser, setCurrentUser] = useState(null);
     const classes = useStyles();
+
+    const signUp = (e) => {
+        e.preventDefault();
+        const { email, password } = e.target.elements;
+        try{
+            firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value)
+            setCurrentUser(true)
+        } catch(error){
+            alert(error)
+        }
+    }
+
+    if(currentUser){
+        alert("Sign Up successful")
+        return <Redirect to="/login"/>
+    }
+
+
 
     return (
         <Container className="sign-up-form" component="main" maxWidth="xs">
@@ -42,7 +56,7 @@ function Signup() {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form onSubmit={signUp} className={classes.form} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField

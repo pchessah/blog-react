@@ -6,13 +6,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider} from "./Auth"
 
 ReactDOM.render(
   <React.StrictMode>
+    <AuthProvider>
     <Router>
       <App />
     </Router>
-
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

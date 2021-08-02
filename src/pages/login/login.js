@@ -1,5 +1,4 @@
-import React from 'react'
-import Avatar from '@material-ui/core/Avatar';
+import React, { useContext } from 'react'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import "./login.css"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom";
+import { AuthContext } from "../../Auth"
+import firebaseConfig from '../../config';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -18,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: "#333333",
     },
     form: {
       width: '100%', // Fix IE 11 issue.
@@ -34,6 +32,22 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
     const classes = useStyles();
+
+    const logIn = (e) => {
+      e.preventDefault();
+      const {email, password} = e.target.elements;
+      try{
+        firebaseConfig.auth().signInWithEmailAndPassword(email.value, password.value)
+      } catch(error){
+        alert(error);
+      }
+    }
+
+    const { currentUser } = useContext(AuthContext)
+
+    if(currentUser){
+      return <Redirect to="/profile"/>
+    }
     return (
         <Container className="login-form" component="main" maxWidth="xs">
         <CssBaseline />
@@ -42,7 +56,7 @@ function Login() {
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={logIn} className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -80,7 +94,7 @@ function Login() {
             </Button>
             <Grid container justifyContent="space-between">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/forgot-password" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
