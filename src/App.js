@@ -1,17 +1,23 @@
 import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
 import Sidebar from './components/sidebar/sidebar';
-
+import Home from "./pages/home/home"
+import Profile from "./pages/profile/profile"
+import Blogposts from "./pages/blogposts/blogposts"
+import { Switch, Route } from "react-router-dom"
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Sidebar/>
 
+      <div className="App">
+        <Sidebar/>    
+            <Switch>
+                <Route path="/" component={Home} exact />
+                <Route path="/profile" component={Profile} />
+                <Route path="/blogposts" component={Blogposts} />
+            </Switch>
       </div>
 
-    </Router>
+
 
   );
 }

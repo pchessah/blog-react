@@ -2,13 +2,12 @@ import React from 'react'
 import {
     CDBSidebar,
     CDBSidebarContent,
-    CDBSidebarFooter,
     CDBSidebarHeader,
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
 
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function Sidebar() {
@@ -18,26 +17,37 @@ function Sidebar() {
         >
             <CDBSidebar textColor="#fff" backgroundColor="#333">
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                    <a
-                        href="/"
+                    <Link
+                        to="/"
                         className="text-decoration-none"
                         style={{ color: 'inherit' }}
                     >
                         Chessah Blog
-                    </a>
+                    </Link>
+
                 </CDBSidebarHeader>
+                < CDBSidebarMenu>
+                    <CDBSidebarContent>
+                        <CDBSidebarMenuItem>
+                            <Link to="/">Home</Link>
+                        </CDBSidebarMenuItem>
 
 
-                <CDBSidebarFooter style={{ textAlign: 'center' }}>
-                    <div
-                        className="sidebar-btn-wrapper"
-                        style={{
-                            padding: '20px 5px',
-                        }}
-                    >
-                        Sidebar Footer
-                    </div>
-                </CDBSidebarFooter>
+                        <CDBSidebarMenuItem>
+                            <Link to="/blogposts">Blog Posts</Link>
+                        </CDBSidebarMenuItem>
+
+
+                        <CDBSidebarMenuItem>
+                            <Link to="/profile">Profile</Link>
+                        </CDBSidebarMenuItem>
+
+                    </CDBSidebarContent>
+
+                </CDBSidebarMenu>
+
+
+
             </CDBSidebar>
         </div>
 
