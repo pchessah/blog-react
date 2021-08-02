@@ -2,6 +2,9 @@
   text-align: center;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+}
+
+.page-content{
+  padding: 16px;
 }
 
