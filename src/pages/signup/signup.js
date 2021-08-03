@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -12,19 +12,19 @@ import firebaseConfig from '../../config';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
     form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
     },
     submit: {
-      margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(3, 0, 2),
     },
-  }));
+}));
 
 function Signup() {
     const [currentUser, setCurrentUser] = useState(null);
@@ -33,17 +33,24 @@ function Signup() {
     const signUp = (e) => {
         e.preventDefault();
         const { email, password } = e.target.elements;
+
         try{
-            firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value)
-            setCurrentUser(true)
+            firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value).then(()=>{
+                setCurrentUser(true)
+            }).catch((error) => {
+                window.alert(error)
+            })
+
         } catch(error){
-            alert(error)
+            return
         }
+
+       
     }
 
-    if(currentUser){
-        alert("Sign Up successful")
-        return <Redirect to="/login"/>
+    if (currentUser) {
+        window.alert("Succesfully signed up, now log in")
+        return <Redirect to="/login" />
     }
 
 
@@ -51,8 +58,8 @@ function Signup() {
     return (
         <Container className="sign-up-form" component="main" maxWidth="xs">
             <CssBaseline />
-            <div className={classes.paper}> 
-            <i className="fas fa-user-plus"></i>               
+            <div className={classes.paper}>
+                <i className="fas fa-user-plus"></i>
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
