@@ -1,9 +1,7 @@
 import React, { useContext } from 'react'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import input from '@material-ui/core/input';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -56,7 +54,7 @@ function Login() {
 
 
   return (
-    <Container className="login-form" component="main" maxWidth="xs">
+    <Container className="login-form card pb-5 mt-5" component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <i className="fas fa-sign-out-alt"></i>
@@ -64,32 +62,28 @@ function Login() {
           Log in
         </Typography>
         <form onSubmit={logIn} className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <input
+              variant="outlined"
+              required
+              id="email"
+              placeholder="Email Address"
+              name="email"
+              autoComplete="email"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <input
+              variant="outlined"
+              required
+              name="password"
+              placeholder="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+          </Grid>
           <Button
             type="submit"
             fullWidth
@@ -110,6 +104,7 @@ function Login() {
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
+          </Grid>
           </Grid>
         </form>
       </div>

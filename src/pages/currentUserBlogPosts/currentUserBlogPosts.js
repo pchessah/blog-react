@@ -48,7 +48,7 @@ function CurrentUserBlogPosts(props) {
         <div className="card p-3 m-5">
             <h4>{loggedInUser?.displayName}'s Blog Posts</h4>
             <div>
-                <Table striped responsive>
+                <Table hover responsive>
                     <thead>
                         <tr>
                             <th>#</th>

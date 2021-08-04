@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+import input from '@material-ui/core/input';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -76,7 +76,7 @@ function Signup() {
 
 
     return (
-        <Container className="sign-up-form" component="main" maxWidth="xs">
+        <Container className="sign-up-form  card pb-5 mt-5" component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
                 <i className="fas fa-user-plus"></i>
@@ -86,46 +86,42 @@ function Signup() {
                 <form onSubmit={signUp} className={classes.form} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <TextField
+                            <input
                                 autoComplete="fname"
                                 name="firstName"
                                 variant="outlined"
                                 required
-                                fullWidth
                                 id="firstName"
-                                label="First Name"
+                                placeholder="First Name"
                                 autoFocus
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
+                            <input
                                 variant="outlined"
                                 required
-                                fullWidth
                                 id="lastName"
-                                label="Last Name"
+                                placeholder="Last Name"
                                 name="lastName"
                                 autoComplete="lname"
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
+                            <input
                                 variant="outlined"
                                 required
-                                fullWidth
                                 id="email"
-                                label="Email Address"
+                                placeholder="Email Address"
                                 name="email"
                                 autoComplete="email"
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
+                            <input
                                 variant="outlined"
                                 required
-                                fullWidth
                                 name="password"
-                                label="Password"
+                                placeholder="Password"
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"

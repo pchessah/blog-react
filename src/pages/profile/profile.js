@@ -8,15 +8,19 @@ import CardContent from '@material-ui/core/CardContent';
 import "./profile.css"
 
 const useStyles = makeStyles({
-    root: {
+    addBlogpost: {
         minWidth: 275,
-        margin: 5
+        margin: 5,
+        backgroundColor: "#0786E0",
+        color: "white"
 
     },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
+    viewBlogpost: {
+        minWidth: 275,
+        margin: 5,
+        backgroundColor: "#965A00",
+        color: "white"
+
     },
     title: {
         fontSize: 14,
@@ -38,14 +42,14 @@ function Profile() {
     }
 
     return (
-        <>
+        <div className="card p-2 m-4">
             <h2>Your Profile</h2>
-            <h5>Name: {`${loggedInUser?.displayName}`} </h5>
-            <button className="btn btn-outline-danger" onClick={() => firebaseConfig.auth().signOut()}>Sign Out</button>
+            <p>Name: {`${loggedInUser?.displayName}`} </p>
+           <hr></hr>
             <div className="profile-actions row wrap">
                 <Link to="/new-blogpost">
                     <div className="col">
-                        <Card className={classes.root} variant="outlined">
+                        <Card className={classes.addBlogpost}>
                             <CardContent>
                                 Add Blog Post
                             </CardContent>
@@ -56,25 +60,15 @@ function Profile() {
 
                 <Link to="/your-blogpost">
                     <div className="col">
-                        <Card className={classes.root} variant="outlined">
+                        <Card className={classes.viewBlogpost}>
                             <CardContent>
                                 View Your Blog Posts
                             </CardContent>
                         </Card>
                     </div>
                 </Link>
-
-
-                <div className="col">
-                    <Card className={classes.root} variant="outlined">
-                        <CardContent>
-                            FAQs
-                        </CardContent>
-
-                    </Card>
-                </div>
             </div>
-        </>
+        </div>
     )
 }
 

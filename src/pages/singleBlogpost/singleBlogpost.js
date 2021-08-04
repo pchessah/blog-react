@@ -12,6 +12,7 @@ function SingleBlogpost(props) {
     }
 
     let { id } = useParams();
+    
     const [blogPost, setBlogpost] = useState(initialBlogPostState)
 
     BlogPostService.getAllBlogPosts().doc(id).get().then((snapshot) => {
