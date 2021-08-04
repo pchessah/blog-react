@@ -59,13 +59,7 @@ function Signup() {
             } catch(error){
                 return
             }
-
-        }
-
-
-   
-
-       
+        } 
     }
 
     if (currentUser) {

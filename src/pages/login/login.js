@@ -35,14 +35,24 @@ function Login() {
     e.preventDefault();
     const { email, password } = e.target.elements;
 
-    try {
-      firebaseConfig.auth().signInWithEmailAndPassword(email.value, password.value).catch((error) => {
-        window.alert(error)
-      })
-    } catch (error) {
-      return
+
+    if (email.value.length < 1) {
+      alert("Insert email")
+    } else if (password.value.length < 7) {
+      alert("Password too short")
+    } else {
+      try {
+        firebaseConfig.auth().signInWithEmailAndPassword(email.value, password.value).catch((error) => {
+          window.alert(error)
+        })
+      } catch (error) {
+        return
+      }
     }
+
   }
+
+
   const { currentUser } = useContext(AuthContext)
 
   if (currentUser) {
@@ -62,49 +72,49 @@ function Login() {
           Log in
         </Typography>
         <form onSubmit={logIn} className={classes.form} noValidate>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <input
-              variant="outlined"
-              required
-              id="email"
-              placeholder="Email Address"
-              name="email"
-              autoComplete="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <input
-              variant="outlined"
-              required
-              name="password"
-              placeholder="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container justifyContent="space-between">
-            <Grid item>
-              <Link to="/forgot-password" variant="body2">
-                Forgot password?
-              </Link>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <input
+                variant="outlined"
+                required
+                id="email"
+                placeholder="Email Address"
+                name="email"
+                autoComplete="email"
+              />
             </Grid>
-            <Grid item>
-              <Link to="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+            <Grid item xs={12}>
+              <input
+                variant="outlined"
+                required
+                name="password"
+                placeholder="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
             </Grid>
-          </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+            <Grid container justifyContent="space-between">
+              <Grid item>
+                <Link to="/forgot-password" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to="/signup" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
         </form>
       </div>
