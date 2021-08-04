@@ -43,25 +43,27 @@ function Profile() {
             <h5>Name: {`${loggedInUser?.displayName}`} </h5>
             <button className="btn btn-outline-danger" onClick={() => firebaseConfig.auth().signOut()}>Sign Out</button>
             <div className="profile-actions row wrap">
-                <div className="col">
-                    <Link to="/new-blogpost">
+                <Link to="/new-blogpost">
+                    <div className="col">
                         <Card className={classes.root} variant="outlined">
                             <CardContent>
                                 Add Blog Post
                             </CardContent>
                         </Card>
-                    </Link>
-                </div>
+                    </div>
+                </Link>
 
 
-                <div className="col">
-                    <Card className={classes.root} variant="outlined">
-                        <CardContent>
-                            View Your Blog Posts
-                        </CardContent>
+                <Link to="/your-blogpost">
+                    <div className="col">
+                        <Card className={classes.root} variant="outlined">
+                            <CardContent>
+                                View Your Blog Posts
+                            </CardContent>
+                        </Card>
+                    </div>
+                </Link>
 
-                    </Card>
-                </div>
 
                 <div className="col">
                     <Card className={classes.root} variant="outlined">

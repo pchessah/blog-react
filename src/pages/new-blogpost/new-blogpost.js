@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import BlogPostService from '../../services/blogposts.service'
 import firebaseConfig from '../../config'
+import "./new-blogpost.css"
 
 
-function Newblogpost() {
-
-    
+function Newblogpost() {    
     const initialBlogPostState = {
         title: "",
         post: "",
@@ -34,9 +33,7 @@ function Newblogpost() {
         }).catch((error) => {
             window.alert(error)
         })
-    }
-
-  
+    }  
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -57,10 +54,6 @@ function Newblogpost() {
         return loggedInUser.displayName
     }
 
-  
-
-   
-
     const newBlogPost = () => {
         setBlogPost(initialBlogPostState)
         setSubmitted(false)
@@ -71,14 +64,14 @@ function Newblogpost() {
     return (
         <div className="submit-form">
             {submitted ? (
-                <div>
+                <div className="card p-5 m-5">
                     <h4>Post submitted Successfully</h4>
                     <button className="btn btn-info" onClick={newBlogPost}>Add new Blog Post</button>
                 </div>
             ) : (
-                <div>
+                <div className="card p-5 m-5">
+                    <h4>Add New Blog Post</h4>
                     <div className="form-group">
-                        <label htmlFor="title">Title</label>
                         <input
                             type="text"
                             className="form-control"
@@ -87,21 +80,22 @@ function Newblogpost() {
                             value={blogPost.title}
                             onChange={handleInputChange}
                             name="title"
+                            placeholder="Title"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="post">Post</label>
                         <textarea
                             className="form-control"
                             id="post"
                             required
                             value={blogPost.post}
                             onChange={handleInputChange}
-                            name="post"></textarea>
+                            name="post"
+                            placeholder="Your Post"></textarea>
                     </div>
 
-                    <button onClick={saveBlogPost} className="btn btn-success">
+                    <button onClick={saveBlogPost} className="btn submit-btn">
                         Submit
                     </button>
                 </div>
