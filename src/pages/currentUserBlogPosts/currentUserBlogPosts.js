@@ -7,6 +7,7 @@ import "./currentUserBlogPosts.css"
 import { Table } from 'reactstrap';
 
 function CurrentUserBlogPosts(props) {
+ 
     const [blogposts, setBlogposts] = useState([])
 
 
@@ -27,7 +28,7 @@ function CurrentUserBlogPosts(props) {
         })
         setBlogposts(blogPosts)
     }
-    
+
     useEffect(() => {
         const unsubscribe = BlogPostService.getAllBlogPosts().orderBy("title", "asc").onSnapshot(onDataChange)
         return () => unsubscribe();
@@ -56,25 +57,28 @@ function CurrentUserBlogPosts(props) {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    { blogposts && blogposts.map((blogPost, index) => 
-                       <tbody>
-                       <tr>
-                           <th scope="row">{index+1}</th>
-                           <td>{blogPost.title}</td>
-                           <td>{blogPost.dateOfCreation}</td>
-                           <td>
-                               <button className="btn btn-sm btn-info  ml-1 mr-1 pl-2 pr-2">
-                                   View
-                               </button>
+                    {blogposts && blogposts.map((blogPost, index) =>
+                        <tbody>
+                            <tr key={blogPost.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{blogPost.title}</td>
+                                <td>{blogPost.dateOfCreation}</td>
+                                <td>
+                                    <Link to={`/singleBlogpost/${blogPost.id}`}>
+                                        <button className="btn btn-sm btn-info  ml-1 mr-1 pl-2 pr-2">
+                                            View
+                                        </button>
+                                    </Link>
 
-                               <button className="btn btn-sm btn-outline-danger ml-1 mr-1 pl-2 pr-2">
-                                   Delete
-                               </button>
-                           </td>
-                       </tr>
-                   </tbody>
+
+                                    <button className="btn btn-sm btn-outline-danger ml-1 mr-1 pl-2 pr-2">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
                     )}
-                 
+
                 </Table>
 
             </div>

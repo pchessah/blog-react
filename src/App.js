@@ -8,6 +8,7 @@ import Signup from "./pages/signup/signup"
 import { Switch, Route } from "react-router-dom"
 import Newblogpost from './pages/new-blogpost/new-blogpost';
 import CurrentUserBlogPosts from './pages/currentUserBlogPosts/currentUserBlogPosts';
+import SingleBlogpost from './pages/singleBlogpost/singleBlogpost';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/new-blogpost" component={Newblogpost} />
           <Route path="/your-blogpost" component={CurrentUserBlogPosts}/>
+          <Route path="/singleBlogpost/:id" children={<SingleBlogpost/>}/>
         </Switch>
       </main>
 
