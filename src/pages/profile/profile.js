@@ -10,6 +10,7 @@ import "./profile.css"
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
+        margin: 5
 
     },
     bullet: {
