@@ -44,6 +44,8 @@ function CurrentUserBlogPosts(props) {
         window.alert("Log in first to view page.")
         return <Redirect to="/login" />
     }
+
+
     return (
         <div className="card p-3 m-5">
             <h4>{loggedInUser?.displayName}'s Blog Posts</h4>
@@ -57,7 +59,7 @@ function CurrentUserBlogPosts(props) {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    {blogposts && blogposts.map((blogPost, index) =>
+                    {blogposts && blogposts.filter(blogPost=> blogPost.author === loggedInUser.displayName).map((blogPost, index) =>
                         <tbody>
                             <tr key={blogPost.id}>
                                 <th scope="row">{index + 1}</th>

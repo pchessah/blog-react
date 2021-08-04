@@ -1,4 +1,26 @@
 .blog-card{
-    width: 75vw;
-    margin: 10px 0px 10px 15px;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.blogpost-card-holder{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap !important;
+    justify-content: center;
+    align-items: center;  
+    width: 100%;
+}
+
+.card-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }

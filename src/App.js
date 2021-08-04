@@ -13,7 +13,10 @@ import SingleBlogpost from './pages/singleBlogpost/singleBlogpost';
 function App() {
   return (
     <div className="App">
+      <div className="position-fixed">
       <Sidebar />
+      </div>
+
       <main className="page-content">
         <Switch>
           <Route path="/" component={Home} exact />
