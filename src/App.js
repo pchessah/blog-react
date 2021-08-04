@@ -6,6 +6,7 @@ import Blogposts from "./pages/blogposts/blogposts"
 import Login from "./pages/login/login"
 import Signup from "./pages/signup/signup"
 import { Switch, Route } from "react-router-dom"
+import Newblogpost from './pages/new-blogpost/new-blogpost';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/blogposts" component={Blogposts} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/new-blogpost" component={Newblogpost} />
         </Switch>
       </main>
 
