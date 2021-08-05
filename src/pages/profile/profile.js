@@ -42,7 +42,8 @@ function Profile() {
     }
 
     return (
-        <div className="card p-2 m-4">
+        <div className="row">
+            <div className="card col-12 p-2 mt-4">
             <h2>Your Profile</h2>
             <p>Name: {`${loggedInUser?.displayName}`} </p>
            <hr></hr>
@@ -69,6 +70,8 @@ function Profile() {
                 </Link>
             </div>
         </div>
+        </div>
+        
     )
 }
 

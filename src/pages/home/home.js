@@ -29,7 +29,7 @@ function Home() {
     }
 
     useEffect(() => {
-        const unsubscribe = BlogPostService.getAllBlogPosts().orderBy("title", "asc").onSnapshot(onDataChange)
+        const unsubscribe = BlogPostService.getAllBlogPosts().orderBy("dateOfCreation", "desc").onSnapshot(onDataChange)
         return () => unsubscribe();
     }, [])
 

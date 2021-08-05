@@ -64,12 +64,12 @@ function Newblogpost() {
     return (
         <div className="submit-form">
             {submitted ? (
-                <div className="card p-5 m-5">
+                <div className="card p-5 mt-5">
                     <h4>Post submitted Successfully</h4>
                     <button className="btn btn-info" onClick={newBlogPost}>Add new Blog Post</button>
                 </div>
             ) : (
-                <div className="card p-5 m-5">
+                <div className="card pt-5 pb-5 pl-2 pr-2 mt-5">
                     <h4>Add New Blog Post</h4>
                     <div className="form-group">
                         <input

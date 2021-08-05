@@ -21,7 +21,7 @@ function Sidebar() {
             style={{ display: 'flex', height: '200vh', overflow: 'scroll initial' }}
         >
             <CDBSidebar textColor="white" backgroundColor="transparent">
-                <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+                <CDBSidebarHeader className="sidebar-header" prefix={<i className="fa fa-bars fa-large"></i>}>
                     <Link
                         to="/"
                         className="text-decoration-none"

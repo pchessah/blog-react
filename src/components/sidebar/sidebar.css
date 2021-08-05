@@ -5,3 +5,7 @@ i{
 .fa-user-minus{
     color: rgb(255, 108, 108);
 }
+
+.sidebar-header{
+    padding: 10px;
+}
