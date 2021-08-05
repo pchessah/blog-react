@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState} from 'react'
 import firebaseConfig from '../../config';
 import "./sidebar.css"
 import {
@@ -8,21 +8,43 @@ import {
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
-
-
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Auth';
 
-const logOut = () =>{
-    if(window.confirm("Are you sure you want to log out?")){
-        return firebaseConfig.auth().signOut()
-    }
-}
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
+}));
+
 
 
 function Sidebar() {
+
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
+
+    const logOut = () => {
+
+        if (window.confirm("Are you sure you want to log out?")) {
+            setOpen(true)
+            return firebaseConfig.auth().signOut().then(()=> setOpen(false)).catch((error)=>{
+               setOpen(false)
+                window.alert(error)
+            })
+        }
+    }
     const { currentUser } = useContext(AuthContext)
     return (
+        <>
+         <Backdrop className={classes.backdrop} open={open}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
         <div
             style={{ display: 'flex', height: '200vh', overflow: 'scroll initial' }}
         >
@@ -47,15 +69,15 @@ function Sidebar() {
                             <Link to="/blogposts"> <i className="fas fa-blog"></i>Blog Posts</Link>
                         </CDBSidebarMenuItem> */}
 
-                        {!currentUser ?  <CDBSidebarMenuItem>
+                        {!currentUser ? <CDBSidebarMenuItem>
                             <Link to="/login"> <i className="fas fa-sign-out-alt"></i>Log In</Link>
-                        </CDBSidebarMenuItem> : null }
+                        </CDBSidebarMenuItem> : null}
 
 
-                        {!currentUser ?  <CDBSidebarMenuItem>
+                        {!currentUser ? <CDBSidebarMenuItem>
                             <Link to="/signup">   <i className="fas fa-user-plus"></i>Sign Up</Link>
-                        </CDBSidebarMenuItem> : null }
-                       
+                        </CDBSidebarMenuItem> : null}
+
 
 
                         {currentUser ? <CDBSidebarMenuItem>
@@ -77,6 +99,7 @@ function Sidebar() {
 
             </CDBSidebar>
         </div>
+        </>
 
     )
 }

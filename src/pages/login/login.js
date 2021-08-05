@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +9,8 @@ import "./login.css"
 import { Link, Redirect } from "react-router-dom";
 import { AuthContext } from "../../Auth"
 import firebaseConfig from '../../config';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,10 +27,15 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 function Login() {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
   const logIn = (e) => {
     e.preventDefault();
@@ -41,7 +48,9 @@ function Login() {
       alert("Password too short")
     } else {
       try {
-        firebaseConfig.auth().signInWithEmailAndPassword(email.value, password.value).catch((error) => {
+        setOpen(true)
+        firebaseConfig.auth().signInWithEmailAndPassword(email.value, password.value).then(()=>setOpen(false)).catch((error) => {
+          setOpen(false)
           window.alert(error)
         })
       } catch (error) {
@@ -64,64 +73,67 @@ function Login() {
 
   return (
     <div className="row">
-       <Container className="col-12 card pb-5 mt-5" component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <i className="fas fa-sign-out-alt"></i>
-        <Typography component="h1" variant="h5">
-          Log in
-        </Typography>
-        <form onSubmit={logIn} className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <input
-                variant="outlined"
-                required
-                id="email"
-                placeholder="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <input
-                variant="outlined"
-                required
-                name="password"
-                placeholder="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container justifyContent="space-between">
-              <Grid item>
-                <Link to="/forgot-password" variant="body2">
-                  Forgot password?
-                </Link>
+      <Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Container className="col-12 card pb-5 mt-5" component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <i className="fas fa-sign-out-alt"></i>
+          <Typography component="h1" variant="h5">
+            Log in
+          </Typography>
+          <form onSubmit={logIn} className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <input
+                  variant="outlined"
+                  required
+                  id="email"
+                  placeholder="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
               </Grid>
-              <Grid item>
-                <Link to="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+              <Grid item xs={12}>
+                <input
+                  variant="outlined"
+                  required
+                  name="password"
+                  placeholder="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+              <Grid container justifyContent="space-between">
+                <Grid item>
+                  <Link to="/forgot-password" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link to="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
-      
+          </form>
+        </div>
+      </Container>
+
     </div>
-   
+
   )
 }
 

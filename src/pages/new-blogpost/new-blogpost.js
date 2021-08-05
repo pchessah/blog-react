@@ -2,9 +2,24 @@ import React, { useState } from 'react'
 import BlogPostService from '../../services/blogposts.service'
 import firebaseConfig from '../../config'
 import "./new-blogpost.css"
+import { makeStyles } from '@material-ui/core/styles';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
+}));
 
 
-function Newblogpost() {    
+
+function Newblogpost() {   
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
+    
+    
     const initialBlogPostState = {
         title: "",
         post: "",
@@ -12,7 +27,6 @@ function Newblogpost() {
         author: "",
         published: false
     }
-
     
 
     const [blogPost, setBlogPost] = useState(initialBlogPostState)
@@ -20,6 +34,7 @@ function Newblogpost() {
 
     
     const saveBlogPost = () => {
+        setOpen(true)
         let blogPostData = {
             title: blogPost.title,
             post: blogPost.post,
@@ -28,9 +43,12 @@ function Newblogpost() {
             published: true
         }
 
-        BlogPostService.createBlogPost(blogPostData).then(() => {
+        BlogPostService.createBlogPost(blogPostData).then(() => {           
+            setOpen(false)
+            window.alert("Blog post created succesfully")
             setSubmitted(true)
         }).catch((error) => {
+            setOpen(false)
             window.alert(error)
         })
     }  
@@ -62,6 +80,10 @@ function Newblogpost() {
 
 
     return (
+        <>
+          <Backdrop className={classes.backdrop} open={open}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
         <div className="submit-form">
             {submitted ? (
                 <div className="card p-5 mt-5">
@@ -101,6 +123,7 @@ function Newblogpost() {
                 </div>
             )}
         </div>
+        </>
     )
 }
 

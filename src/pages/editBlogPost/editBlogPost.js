@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useHistory} from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import BlogPostService from "../../services/blogposts.service"
 import firebaseConfig from '../../config'
 import "./editBlogPost.css"
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
+}));
 
 
 function EditBlogPost() {
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
 
     const initialBlogPostState = {
         title: "",
@@ -18,9 +30,9 @@ function EditBlogPost() {
     const [blogPost, setBlogPost] = useState(initialBlogPostState)
 
     let { id } = useParams();
-    let history =  useHistory();
+    let history = useHistory();
 
-    
+
 
     useEffect(() => {
         BlogPostService.getAllBlogPosts().doc(id).get().then((snapshot) => {
@@ -29,16 +41,20 @@ function EditBlogPost() {
     }, [id]);
 
     const saveBlogPost = () => {
+        setOpen(true)
         BlogPostService.updateBlogPost(id, ({
             title: blogPost.title,
             post: blogPost.post,
             dateOfCreation: getCurrentDate(),
             author: getCurrentUser(),
             published: true,
-        })).then(() => {
+        })).then(() => setOpen(false)).then(() => {
             window.alert("Blogpost successfully edited")
             history.push("/your-blogpost")
-        }).catch(e => console.log(e))
+        }).catch((e) => {
+            setOpen(false)
+            window.alert(e)
+        })
     }
 
     const handleInputChange = (event) => {
@@ -63,7 +79,10 @@ function EditBlogPost() {
 
 
     return (
-        <>
+        <>   
+        <Backdrop className={classes.backdrop} open={open}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
             <div className="submit-form">
                 <div className="card pt-5 pb-5 pl-2 pr-2 mt-5">
                     {blogPost.id}

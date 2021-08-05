@@ -6,10 +6,21 @@ import firebaseConfig from '../../config'
 import "./currentUserBlogPosts.css"
 import { Table } from 'reactstrap';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
+}));
 
 
 function CurrentUserBlogPosts(props) {
 
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
     const [blogposts, setBlogposts] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -53,7 +64,11 @@ function CurrentUserBlogPosts(props) {
 
     const deleteBlogPost = (id) => {
         if (window.confirm("Are you sure you want to delete post?")) {
-            BlogPostService.removeBlogPost(id)
+            setOpen(true)
+            BlogPostService.removeBlogPost(id).then(() => setOpen(false)).catch((error)=>{
+                window.alert(error)
+                setOpen(false)
+            })
         } else {
             return null
         }
@@ -75,6 +90,9 @@ function CurrentUserBlogPosts(props) {
 
     return (
         <>
+         <Backdrop className={classes.backdrop} open={open}>
+            <CircularProgress color="inherit" />
+        </Backdrop>
             <div>
                 {loading ? <CircularProgress className="loader" /> : <div className="card p-3 mt-5">
                     {(blogposts.filter(blogPost => blogPost.author === loggedInUser.displayName)).length === 0 ? <NoUserPosts /> : <div>
