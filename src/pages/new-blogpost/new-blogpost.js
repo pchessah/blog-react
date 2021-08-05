@@ -5,6 +5,7 @@ import "./new-blogpost.css"
 import { makeStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Link } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -15,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function Newblogpost() {   
+function Newblogpost() {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    
-    
+
+
     const initialBlogPostState = {
         title: "",
         post: "",
@@ -27,12 +28,12 @@ function Newblogpost() {
         author: "",
         published: false
     }
-    
+
 
     const [blogPost, setBlogPost] = useState(initialBlogPostState)
     const [submitted, setSubmitted] = useState(false)
 
-    
+
     const saveBlogPost = () => {
         setOpen(true)
         let blogPostData = {
@@ -43,7 +44,7 @@ function Newblogpost() {
             published: true
         }
 
-        BlogPostService.createBlogPost(blogPostData).then(() => {           
+        BlogPostService.createBlogPost(blogPostData).then(() => {
             setOpen(false)
             window.alert("Blog post created succesfully")
             setSubmitted(true)
@@ -51,7 +52,7 @@ function Newblogpost() {
             setOpen(false)
             window.alert(error)
         })
-    }  
+    }
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -81,48 +82,53 @@ function Newblogpost() {
 
     return (
         <>
-          <Backdrop className={classes.backdrop} open={open}>
-            <CircularProgress color="inherit" />
-        </Backdrop>
-        <div className="submit-form">
-            {submitted ? (
-                <div className="card p-5 mt-5">
-                    <h4>Post submitted Successfully</h4>
-                    <button className="btn btn-info" onClick={newBlogPost}>Add new Blog Post</button>
-                </div>
-            ) : (
-                <div className="card pt-5 pb-5 pl-2 pr-2 mt-5">
-                    <h4>Add New Blog Post</h4>
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="title"
-                            required
-                            value={blogPost.title}
-                            onChange={handleInputChange}
-                            name="title"
-                            placeholder="Title"
-                        />
-                    </div>
+            <Backdrop className={classes.backdrop} open={open}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            <div className="submit-form">
+                {submitted ? (
+                    <div className="card p-5 mt-5">
+                        <h4>Post submitted Successfully</h4>
+                        <button className="m-2 btn btn-info" onClick={newBlogPost}>Add new Blog Post</button>
+                        <Link className="m-2 btn btn-success" to="/your-blogpost">
 
-                    <div className="form-group">
-                        <textarea
-                            className="form-control"
-                            id="post"
-                            required
-                            value={blogPost.post}
-                            onChange={handleInputChange}
-                            name="post"
-                            placeholder="Your Post"></textarea>
-                    </div>
+                            View Your Blog Posts
 
-                    <button onClick={saveBlogPost} className="btn submit-btn">
-                        Submit
-                    </button>
-                </div>
-            )}
-        </div>
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="card pt-5 pb-5 pl-2 pr-2 mt-5">
+                        <h4>Add New Blog Post</h4>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="title"
+                                required
+                                value={blogPost.title}
+                                onChange={handleInputChange}
+                                name="title"
+                                placeholder="Title"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <textarea
+                                className="form-control"
+                                id="post"
+                                required
+                                value={blogPost.post}
+                                onChange={handleInputChange}
+                                name="post"
+                                placeholder="Your Post"></textarea>
+                        </div>
+
+                        <button onClick={saveBlogPost} className="btn submit-btn">
+                            Submit
+                        </button>
+                    </div>
+                )}
+            </div>
         </>
     )
 }
