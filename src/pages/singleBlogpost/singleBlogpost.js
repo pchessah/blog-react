@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import BlogPostService from "../../services/blogposts.service"
+import "./singleBlogpost.css"
 
 function SingleBlogpost(props) {
     const initialBlogPostState = {
@@ -43,7 +44,7 @@ function SingleBlogpost(props) {
                     <em>{blogPost.dateOfCreation}</em>
                 </p>
                 <hr></hr>
-                <p>{blogPost.post}</p>
+                <p className="blogpost">{blogPost.post}</p>
                 <hr></hr>
                 
                 <i onClick={goBack} className="fas fa-step-backward"> Back to Feed</i>
