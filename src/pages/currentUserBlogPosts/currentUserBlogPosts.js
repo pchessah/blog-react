@@ -55,13 +55,12 @@ function CurrentUserBlogPosts(props) {
 
 
     return (
-        <div className="card p-3 m-5">
+        <div className="card p-3 mt-5">
             <h4>{loggedInUser?.displayName}'s Blog Posts</h4>
             <div>
                 <Table hover responsive>
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Title</th>
                             <th>Date</th>
                             <th>Action</th>
@@ -70,20 +69,18 @@ function CurrentUserBlogPosts(props) {
                     {blogposts && blogposts.filter(blogPost=> blogPost.author === loggedInUser.displayName).map((blogPost, index) =>
                         <tbody>
                             <tr key={blogPost.id}>
-                                <th scope="row">{index + 1}</th>
                                 <td>{blogPost.title}</td>
                                 <td>{blogPost.dateOfCreation}</td>
-                                <td>
+                                <td className="action-btns">
                                     <Link to={`/singleBlogpost/${blogPost.id}`}>
-                                        <button className="btn btn-sm btn-info  ml-1 mr-1 pl-2 pr-2">
-                                            View
-                                        </button>
+                                        <i className="fas fa-eye ml-1 mr-1 pl-2 pr-2"></i>
                                     </Link>
 
+                                    <Link to={`/editBlogPost/${blogPost.id}`}>
+                                    <i className="far fa-edit ml-1 mr-1 pl-2 pr-2"></i>
+                                    </Link>
 
-                                    <button onClick={()=>deleteBlogPost(blogPost.id)} className="btn btn-sm btn-outline-danger ml-1 mr-1 pl-2 pr-2">
-                                        Delete
-                                    </button>
+                                    <i onClick={()=>deleteBlogPost(blogPost.id)} className="far fa-trash-alt ml-1 mr-1 pl-2 pr-2"></i>
                                 </td>
                             </tr>
                         </tbody>

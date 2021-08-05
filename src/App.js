@@ -9,6 +9,8 @@ import { Switch, Route } from "react-router-dom"
 import Newblogpost from './pages/new-blogpost/new-blogpost';
 import CurrentUserBlogPosts from './pages/currentUserBlogPosts/currentUserBlogPosts';
 import SingleBlogpost from './pages/singleBlogpost/singleBlogpost';
+import EditBlogPost from "./pages/editBlogPost/editBlogPost"
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Route path="/new-blogpost" component={Newblogpost} />
           <Route path="/your-blogpost" component={CurrentUserBlogPosts} />
           <Route path="/singleBlogpost/:id" children={<SingleBlogpost />} />
+          <Route path="/editBlogPost/:id" children={<EditBlogPost />} />
         </Switch>
       </main>
 
