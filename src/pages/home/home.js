@@ -1,8 +1,7 @@
 import "./home.css"
 import React, { useState, useEffect } from 'react';
-import firebaseConfig from '../../config'
 import BlogPostService from '../../services/blogposts.service'
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 
@@ -40,18 +39,20 @@ function Home() {
             <div>
                 <div className="row blogpost-card-holder">
                     {blogposts && blogposts.map((blogpost, index) =>
-                        <div className="blog-card card p-1 m-1 col-6">
+                        <Link key={blogpost.id} className="blog-card card p-1 m-1 col-12" to={`/singleBlogpost/${blogpost.id}`}>
                             <div className="card-content">
                                 <h5>{blogpost.title}</h5>
                                 by
                                 <p><e>{blogpost.author}</e></p>
                             </div>
                             <div className="card-footer mb-0">
-                                <i className="fas fa-thumbs-up"></i>
-                                <i className="fas fa-eye"></i>
+                                <Link to={`/singleBlogpost/${blogpost.id}`}>
+                                    <i className="fas fa-eye"></i>
+                                </Link>
+                                <div> <p>Posted on {blogpost.dateOfCreation}</p> </div>
                                 <i className="fas fa-share-alt"></i>
                             </div>
-                        </div>
+                        </Link>
                     )}
                 </div>
             </div>

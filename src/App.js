@@ -13,9 +13,9 @@ import SingleBlogpost from './pages/singleBlogpost/singleBlogpost';
 function App() {
   return (
     <div className="App">
-      <div className="position-fixed">
-      <Sidebar />
-      </div>
+
+        <Sidebar />
+ 
 
       <main className="page-content">
         <Switch>
@@ -25,8 +25,8 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/new-blogpost" component={Newblogpost} />
-          <Route path="/your-blogpost" component={CurrentUserBlogPosts}/>
-          <Route path="/singleBlogpost/:id" children={<SingleBlogpost/>}/>
+          <Route path="/your-blogpost" component={CurrentUserBlogPosts} />
+          <Route path="/singleBlogpost/:id" children={<SingleBlogpost />} />
         </Switch>
       </main>
 

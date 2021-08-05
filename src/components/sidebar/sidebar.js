@@ -20,7 +20,7 @@ function Sidebar() {
         <div
             style={{ display: 'flex', height: '200vh', overflow: 'scroll initial' }}
         >
-            <CDBSidebar textColor="white" backgroundColor="#005C9E">
+            <CDBSidebar textColor="white" backgroundColor="transparent">
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
                     <Link
                         to="/"
@@ -34,12 +34,12 @@ function Sidebar() {
                 < CDBSidebarMenu>
                     <CDBSidebarContent>
                         <CDBSidebarMenuItem>
-                            <Link to="/"> <i className="fas fa-home"></i>Home</Link>
+                            <Link to="/"> <i className="fas fa-blog"></i>Feed</Link>
                         </CDBSidebarMenuItem>
 
-                        <CDBSidebarMenuItem>
+                        {/* <CDBSidebarMenuItem>
                             <Link to="/blogposts"> <i className="fas fa-blog"></i>Blog Posts</Link>
-                        </CDBSidebarMenuItem>
+                        </CDBSidebarMenuItem> */}
 
                         <CDBSidebarMenuItem>
                             <Link to="/login"> <i className="fas fa-sign-out-alt"></i>Log In</Link>

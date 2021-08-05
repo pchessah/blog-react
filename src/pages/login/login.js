@@ -63,7 +63,8 @@ function Login() {
 
 
   return (
-    <Container className="login-form card pb-5 mt-5" component="main" maxWidth="xs">
+    <div className="row">
+       <Container className="col-12 card pb-5 mt-5" component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <i className="fas fa-sign-out-alt"></i>
@@ -118,6 +119,9 @@ function Login() {
         </form>
       </div>
     </Container>
+      
+    </div>
+   
   )
 }
 
