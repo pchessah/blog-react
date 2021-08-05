@@ -45,6 +45,14 @@ function CurrentUserBlogPosts(props) {
         return <Redirect to="/login" />
     }
 
+    const deleteBlogPost = (id) => {
+       if(window.confirm("Are you sure you want to delete post?")){
+           BlogPostService.removeBlogPost(id)          
+        } else {
+            return null
+        }
+    }
+
 
     return (
         <div className="card p-3 m-5">
@@ -73,7 +81,7 @@ function CurrentUserBlogPosts(props) {
                                     </Link>
 
 
-                                    <button className="btn btn-sm btn-outline-danger ml-1 mr-1 pl-2 pr-2">
+                                    <button onClick={()=>deleteBlogPost(blogPost.id)} className="btn btn-sm btn-outline-danger ml-1 mr-1 pl-2 pr-2">
                                         Delete
                                     </button>
                                 </td>
