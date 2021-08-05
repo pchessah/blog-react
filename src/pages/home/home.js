@@ -10,6 +10,7 @@ function Home() {
     const [loading, setLoading] = useState(true)
 
 
+
     const onDataChange = (items) => {
         let blogPosts = []
 
@@ -34,29 +35,47 @@ function Home() {
         return () => unsubscribe();
     }, [])
 
+    const Feed = () => {
+        const [search, setSearch] = useState("");
+        return (
+            <>
+
+                <div className="row blogpost-card-holder">
+
+                    <input
+                        type="text" placeholder="Search feed..."
+                        onChange={e => setSearch(e.target.value)}
+                    />
+
+                    {blogposts && blogposts.filter(blogpost => blogpost.title.toLowerCase().includes(search.toLowerCase()) || blogpost.author.toLowerCase().includes(search.toLowerCase()))
+
+                        .map((blogpost) =>
+                            <Link key={blogpost.id} className="blog-card card p-1 m-1 col-12" to={`/singleBlogpost/${blogpost.id}`}>
+                                <div className="card-content">
+                                    <h5>{blogpost.title}</h5>
+                                    by
+                                    <p><em>{blogpost.author}</em></p>
+                                </div>
+                                <div className="card-footer mb-0">
+
+                                    <i className="fas fa-eye"></i>
+
+                                    <div> <p>Posted on {blogpost.dateOfCreation}</p> </div>
+                                    <i className="fas fa-share-alt"></i>
+                                </div>
+                            </Link>
+                        )}
+                </div>
+            </>
+
+        )
+    }
+
 
     return (
         <>
             <div>
-                {loading ? <CircularProgress className="loader" /> : <div className="row blogpost-card-holder">
-                    {blogposts && blogposts.map((blogpost, index) =>
-                        <Link key={blogpost.id} className="blog-card card p-1 m-1 col-12" to={`/singleBlogpost/${blogpost.id}`}>
-                            <div className="card-content">
-                                <h5>{blogpost.title}</h5>
-                                by
-                                <p><em>{blogpost.author}</em></p>
-                            </div>
-                            <div className="card-footer mb-0">
-
-                                <i className="fas fa-eye"></i>
-
-                                <div> <p>Posted on {blogpost.dateOfCreation}</p> </div>
-                                <i className="fas fa-share-alt"></i>
-                            </div>
-                        </Link>
-                    )}
-                </div>}
-
+                {loading ? <CircularProgress className="loader" /> : <Feed />}
             </div>
         </>
     )
