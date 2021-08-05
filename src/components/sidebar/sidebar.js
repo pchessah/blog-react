@@ -13,6 +13,12 @@ import {
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Auth';
 
+const logOut = () =>{
+    if(window.confirm("Are you sure you want to log out?")){
+        return firebaseConfig.auth().signOut()
+    }
+}
+
 
 function Sidebar() {
     const { currentUser } = useContext(AuthContext)
@@ -41,13 +47,15 @@ function Sidebar() {
                             <Link to="/blogposts"> <i className="fas fa-blog"></i>Blog Posts</Link>
                         </CDBSidebarMenuItem> */}
 
-                        <CDBSidebarMenuItem>
+                        {!currentUser ?  <CDBSidebarMenuItem>
                             <Link to="/login"> <i className="fas fa-sign-out-alt"></i>Log In</Link>
-                        </CDBSidebarMenuItem>
+                        </CDBSidebarMenuItem> : null }
 
-                        <CDBSidebarMenuItem>
+
+                        {!currentUser ?  <CDBSidebarMenuItem>
                             <Link to="/signup">   <i className="fas fa-user-plus"></i>Sign Up</Link>
-                        </CDBSidebarMenuItem>
+                        </CDBSidebarMenuItem> : null }
+                       
 
 
                         {currentUser ? <CDBSidebarMenuItem>
@@ -56,7 +64,7 @@ function Sidebar() {
                         }
 
                         {currentUser ? <CDBSidebarMenuItem>
-                            <Link to="/profile"><i onClick={()=>firebaseConfig.auth().signOut()} className="fas fa-user-minus text-red"></i>Log out</Link>
+                            <i onClick={logOut} className="fas fa-user-minus text-red">&nbsp;&nbsp;&nbsp;&nbsp;Log Out</i>
                         </CDBSidebarMenuItem> : null
                         }
 

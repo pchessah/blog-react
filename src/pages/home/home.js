@@ -2,12 +2,12 @@ import "./home.css"
 import React, { useState, useEffect } from 'react';
 import BlogPostService from '../../services/blogposts.service'
 import { Link } from "react-router-dom"
-
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function Home() {
 
     const [blogposts, setBlogposts] = useState([])
+    const [loading, setLoading] = useState(true)
 
 
     const onDataChange = (items) => {
@@ -26,6 +26,7 @@ function Home() {
             }]
         })
         setBlogposts(blogPosts)
+        blogPosts.length > 1 ? setLoading(false) : setLoading(true)
     }
 
     useEffect(() => {
@@ -37,24 +38,25 @@ function Home() {
     return (
         <>
             <div>
-                <div className="row blogpost-card-holder">
+                {loading ? <CircularProgress className="loader" /> : <div className="row blogpost-card-holder">
                     {blogposts && blogposts.map((blogpost, index) =>
                         <Link key={blogpost.id} className="blog-card card p-1 m-1 col-12" to={`/singleBlogpost/${blogpost.id}`}>
                             <div className="card-content">
                                 <h5>{blogpost.title}</h5>
                                 by
-                                <p><e>{blogpost.author}</e></p>
+                                <p><em>{blogpost.author}</em></p>
                             </div>
                             <div className="card-footer mb-0">
-                                <Link to={`/singleBlogpost/${blogpost.id}`}>
-                                    <i className="fas fa-eye"></i>
-                                </Link>
+
+                                <i className="fas fa-eye"></i>
+
                                 <div> <p>Posted on {blogpost.dateOfCreation}</p> </div>
                                 <i className="fas fa-share-alt"></i>
                             </div>
                         </Link>
                     )}
-                </div>
+                </div>}
+
             </div>
         </>
     )

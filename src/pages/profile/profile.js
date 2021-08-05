@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     viewBlogpost: {
         minWidth: 275,
         margin: 5,
-        backgroundColor: "#965A00",
+        backgroundColor: "#DE9B3A",
         color: "white"
 
     },

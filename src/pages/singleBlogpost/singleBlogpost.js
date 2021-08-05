@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 import BlogPostService from "../../services/blogposts.service"
 
 function SingleBlogpost(props) {
@@ -12,12 +12,24 @@ function SingleBlogpost(props) {
     }
 
     let { id } = useParams();
+    let history = useHistory();
+
+    const goBack = () => {
+        history.push("/")
+    }
     
     const [blogPost, setBlogpost] = useState(initialBlogPostState)
 
     BlogPostService.getAllBlogPosts().doc(id).get().then((snapshot) => {
         setBlogpost(snapshot.data())
     })
+
+    useEffect(() => {
+        // componentWillUnmount
+        return () => {
+          setBlogpost(null)
+        }
+      }, []);
 
     return (
         <>
@@ -32,6 +44,9 @@ function SingleBlogpost(props) {
                 </p>
                 <hr></hr>
                 <p>{blogPost.post}</p>
+                <hr></hr>
+                
+                <i onClick={goBack} className="fas fa-step-backward"> Back to Feed</i>
 
             </div>
 

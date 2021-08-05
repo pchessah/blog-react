@@ -4,6 +4,7 @@ import BlogPostService from "../../services/blogposts.service"
 import firebaseConfig from '../../config'
 import "./editBlogPost.css"
 
+
 function EditBlogPost() {
 
     const initialBlogPostState = {
@@ -16,9 +17,10 @@ function EditBlogPost() {
 
     const [blogPost, setBlogPost] = useState(initialBlogPostState)
 
-
     let { id } = useParams();
     let history =  useHistory();
+
+    
 
     useEffect(() => {
         BlogPostService.getAllBlogPosts().doc(id).get().then((snapshot) => {
@@ -50,7 +52,6 @@ function EditBlogPost() {
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
         today = mm + '/' + dd + '/' + yyyy;
-        console.log(today);
         return today
     }
 

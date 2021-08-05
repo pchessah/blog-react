@@ -2,11 +2,25 @@
   text-align: center;
   display: flex;
   flex-direction: row;
+  font-size: small;
 }
 
 .page-content{
   padding: 16px;
   width: 100%;
   
+}
+
+i:hover{
+  cursor: pointer;
+}
+
+.loader{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    color: white !important;
 }
 
