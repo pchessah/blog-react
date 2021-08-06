@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import firebaseConfig from "./config";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 export const AuthContext = React.createContext();
 
@@ -16,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <CircularProgress className="loader"/>;
   }
   return (
     <AuthContext.Provider value={{ currentUser }}>
