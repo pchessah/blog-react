@@ -50,7 +50,7 @@ function Home() {
                     {blogposts && blogposts.filter(blogpost => blogpost.title.toLowerCase().includes(search.toLowerCase()) || blogpost.author.toLowerCase().includes(search.toLowerCase()))
 
                         .map((blogpost) =>
-                            <Link key={blogpost.id} className="blog-card card p-1 m-1 col-12" to={`/singleBlogpost/${blogpost.id}`}>
+                            <Link key={blogpost.id} className="blog-card card p-1 col-sm-12 col-md-6 col-lg-3" to={`/singleBlogpost/${blogpost.id}`}>
                                 <div className="card-content">
                                     <h5>{blogpost.title}</h5>
                                     by

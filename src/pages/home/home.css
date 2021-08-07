@@ -1,11 +1,13 @@
 .blog-card{
-    width: 200px;
+    min-width: 300px!important;
     height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none !important;
     color: black !important;
+    margin: 8px 1px;
+  
 }
 
 .blogpost-card-holder{
