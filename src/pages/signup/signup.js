@@ -11,6 +11,7 @@ import firebaseConfig from '../../config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -40,18 +41,21 @@ function Signup() {
     const signUp = (e) => {
         e.preventDefault();
 
-        const { email, password, firstName, lastName } = e.target.elements;
+        const { email, password, password2, firstName, lastName } = e.target.elements;
 
 
         if (email.value.length < 1) {
             alert("Insert email")
+            
         } else if (password.value.length < 7) {
             alert("Password too short")
         } else if (firstName.value.length < 1) {
             alert("Insert First Name")
         } else if (lastName.value.length < 1) {
             alert("Insert Last Name")
-        } else {
+        } else if (password2.value !== password.value) {
+            alert("Passwords do not match")
+        }   else {
             try {
                 setOpen(true)
                 firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value).then(() => setOpen(false)).then(() => {
@@ -131,6 +135,17 @@ function Signup() {
                                     placeholder="Password"
                                     type="password"
                                     id="password"
+                                    autoComplete="current-password"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <input
+                                    variant="outlined"
+                                    required
+                                    name="password2"
+                                    placeholder="Confirm Password"
+                                    type="password"
+                                    id="password2"
                                     autoComplete="current-password"
                                 />
                             </Grid>
