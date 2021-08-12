@@ -8,7 +8,7 @@ export const AuthContext = React.createContext();
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-  
+
   useEffect(() => {
     firebaseConfig.auth().onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
 
   if (loading) {
-    return <CircularProgress className="loader"/>;
+    return <CircularProgress className="loader" />;
   }
   return (
     <AuthContext.Provider value={{ currentUser }}>

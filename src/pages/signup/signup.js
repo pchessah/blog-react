@@ -88,6 +88,7 @@ function Signup() {
                 <CircularProgress color="inherit" />
             </Backdrop>
             <Container className="sign-up-form  card pb-5 mt-5" component="main" maxWidth="xs">
+                
                 <CssBaseline />
                 <div className={classes.paper}>
                     <i className="fas fa-user-plus"></i>
